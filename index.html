@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="./assets/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fenix - Центр установки сигнализаций и автоэлектроники в Благовещенске</title>
+    <meta name="description" content="Fenix - профессиональный центр установки охранных систем, автоэлектрики и детейлинга в Благовещенске. Запишитесь на прием к нашему мастеру онлайн." />
+    <meta name="keywords" content="установка сигнализаций, автоэлектрик, детейлинг, автосервис Благовещенск, охранные системы авто, бронирование, полировка" />
+    <meta name="geo.region" content="RU-AMU" />
+    <meta name="geo.placename" content="Благовещенск" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <svg aria-hidden="true" class="icon-sprite" data-icon-sprite></svg>
+    <nav class="navbar" data-navbar>
+      <div class="container navbar__inner">
+        <a class="brand" href="#" data-scroll-top>
+          <img
+            src="./assets/logo.png"
+            alt="Fenix logo"
+            class="brand__logo"
+          />
+          <span class="brand__name">FENIX</span>
+        </a>
+
+        <div class="navbar__links" data-nav-desktop>
+          <button class="navlink" data-scroll="#services">Услуги</button>
+          <button class="navlink" data-scroll="#about">О нас</button>
+          <button class="navlink" data-scroll="#team">Мастера</button>
+          <button class="navlink" data-scroll="#contact">Контакты</button>
+          <button class="btn btn--primary" data-scroll="#booking">Записаться</button>
+        </div>
+
+        <button class="navbar__burger" type="button" aria-label="Меню" data-nav-toggle>
+          <svg class="ri-icon" data-nav-icon viewBox="0 0 24 24"><use href="#ri-menu-line"></use></svg>
+        </button>
+      </div>
+
+      <div class="navbar__mobile" data-nav-mobile hidden>
+        <div class="navbar__mobile-inner">
+          <button class="navlink navlink--mobile" data-scroll="#services">Услуги</button>
+          <button class="navlink navlink--mobile" data-scroll="#about">О нас</button>
+          <button class="navlink navlink--mobile" data-scroll="#team">Мастера</button>
+          <button class="navlink navlink--mobile" data-scroll="#contact">Контакты</button>
+          <button class="btn btn--primary btn--block" data-scroll="#booking">Записаться на прием</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page">
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="hero__bg">
+          <img
+            src="./assets/hero-bg.png"
+            alt="Fenix Workshop"
+          />
+          <div class="hero__overlay"></div>
+        </div>
+
+        <div class="container hero__content">
+          <h1 class="title title--hero reveal" style="transition-delay: 200ms;">
+            Профессиональный<br /><span class="accent">автосервис</span>
+          </h1>
+          <p class="subtitle reveal" style="transition-delay: 300ms;">
+            Охранные системы, шумоизоляция и детейлинг. Качественный сервис с вниманием к деталям.
+          </p>
+
+          <div class="hero__cards reveal" style="transition-delay: 400ms;">
+            <div class="card-mini">
+              <div class="card-mini__icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-shield-check-line"></use></svg></div>
+              <h3 class="card-mini__title">Охранные системы</h3>
+              <p class="card-mini__desc">Сигнализации, GSM, GPS</p>
+            </div>
+            <div class="card-mini">
+              <div class="card-mini__icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-volume-mute-line"></use></svg></div>
+              <h3 class="card-mini__title">Шумоизоляция</h3>
+              <p class="card-mini__desc">Салон, арки, моторный щит</p>
+            </div>
+            <div class="card-mini">
+              <div class="card-mini__icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-sparkling-line"></use></svg></div>
+              <h3 class="card-mini__title">Детейлинг</h3>
+              <p class="card-mini__desc">Полировка, химчистка, защита</p>
+            </div>
+          </div>
+
+          <div class="hero__cta reveal" style="transition-delay: 500ms;">
+            <button class="btn btn--primary" data-scroll="#booking">Записаться сейчас</button>
+            <button class="btn btn--ghost" data-scroll="#services">
+              Посмотреть услуги <svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-arrow-down-line"></use></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="section section--about" id="about">
+        <div class="section__divider section__divider--solid"></div>
+        <div class="about">
+          <div class="about__left">
+            <div class="about__content">
+              <div class="badge reveal">О нас</div>
+              <h2 class="title reveal" style="transition-delay: 100ms;">
+                FENIX – ваш<br /><span class="accent">автоцентр</span>
+              </h2>
+
+              <div class="chips reveal" style="transition-delay: 200ms;">
+                <span class="chip">Опытные мастера</span>
+                <span class="chip">Честные цены</span>
+                <span class="chip">Гарантия на работы</span>
+              </div>
+
+              <p class="text">
+                FENIX – автосервис в Благовещенске. Основные направления: установка охранных систем, автоэлектрика,
+                шумоизоляция, бронепленка и полировка. Работаем с легковыми автомобилями и небольшими коммерческими
+                транспортными средствами.
+              </p>
+              <p class="text">
+                Используем запчасти и расходные материалы от проверенных поставщиков. На все виды работ предоставляется
+                гарантия. Стоимость рассчитывается индивидуально исходя из объёма работ и используемых материалов.
+              </p>
+              <p class="text text--dim">
+                Запись на обслуживание по телефону или через форму на сайте.
+              </p>
+
+              <div class="stats reveal" style="transition-delay: 300ms;">
+                <div class="stat">
+                  <div class="stat__value">15+</div>
+                  <div class="stat__label">лет опыта</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value">1000+</div>
+                  <div class="stat__label">выполненных работ</div>
+                </div>
+                <div class="stat">
+                  <div class="stat__value">1–3 <span class="stat__suffix">дня</span></div>
+                  <div class="stat__label">средний срок работ</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about__right">
+            <img
+              src="./assets/about.png"
+              alt="Мастера Fenix за работой"
+            />
+            <div class="about__gradient"></div>
+          </div>
+        </div>
+        <div class="section__divider section__divider--solid section__divider--bottom"></div>
+      </section>
+
+      <!-- TEAM -->
+      <section class="section" id="team">
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="badge">Команда</div>
+            <h2 class="title">Наши <span class="accent">мастера</span></h2>
+            <p class="subtitle">Профессиональная команда с многолетним опытом. Каждый мастер – эксперт в своей области.</p>
+          </div>
+
+          <div class="grid grid--team reveal" style="transition-delay: 100ms;">
+            <article class="card-team">
+              <div class="card-team__photo">
+                <img
+                  src="./assets/team-evgeniy.jpg"
+                  alt="Евгений"
+                />
+              </div>
+              <div class="card-team__body">
+                <h3 class="card-team__name">Евгений</h3>
+                <p class="card-team__role">Автоэлектрик</p>
+                <p class="card-team__desc">Установка сигнализаций, видеорегистраторы, камеры заднего вида, шумоизоляция</p>
+              </div>
+            </article>
+
+            <article class="card-team">
+              <div class="card-team__photo">
+                <img
+                  src="./assets/team-maxim.jpg"
+                  alt="Максим"
+                />
+              </div>
+              <div class="card-team__body">
+                <h3 class="card-team__name">Максим</h3>
+                <p class="card-team__role">Детейлер</p>
+                <p class="card-team__desc">
+                  Бронирование пленкой, антихром, полировка, керамическое покрытие, реставрация кожи
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <p class="note reveal" style="transition-delay: 200ms;">
+            Наши мастера любят свою работу и относятся к каждому автомобилю как к своему.
+          </p>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section class="section section--services" id="services">
+        <div class="section__divider section__divider--grad"></div>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="badge">Услуги и цены</div>
+            <h2 class="title">Прайс-<span class="accent">лист</span></h2>
+            <p class="subtitle">Актуальные цены на все виды работ. Окончательная стоимость рассчитывается после обращения.</p>
+          </div>
+
+          <div class="tabs reveal" data-services-tabs style="transition-delay: 100ms;"></div>
+
+          <div class="price reveal" style="transition-delay: 200ms;">
+            <div class="price__head">
+              <span>Услуга</span>
+              <span class="price__price">Цена</span>
+            </div>
+            <div class="price__body" data-services-body></div>
+          </div>
+
+          <div class="section__cta reveal" style="transition-delay: 300ms;">
+            <p class="text text--dim">Не нашли нужную услугу? Свяжитесь с нами – скорее всего, мы это делаем.</p>
+            <button class="btn btn--primary btn--dark" data-scroll="#booking">Связь с нами</button>
+          </div>
+        </div>
+        <div class="section__divider section__divider--grad section__divider--bottom"></div>
+      </section>
+
+      <!-- BOOKING -->
+      <section class="section section--booking" id="booking">
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="badge">Запись</div>
+            <h2 class="title">Запишитесь на <span class="accent">прием</span></h2>
+            <p class="subtitle">Оставьте заявку – мы позвоним, уточним детали и назначим удобное время. Работаем без выходных.</p>
+          </div>
+
+          <div class="booking reveal" style="transition-delay: 100ms;">
+            <div class="booking__success" data-booking-success hidden>
+              <div class="booking__success-icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-check-line"></use></svg></div>
+              <h3>Заявка отправлена!</h3>
+              <p>Мы перезвоним вам в ближайшее время</p>
+            </div>
+
+            <form
+              id="booking-form"
+              class="booking__form"
+              data-booking-form
+            >
+              <div class="booking__grid">
+                <div class="booking__fields">
+                  <label class="field">
+                    <span class="field__label">ФИО *</span>
+                    <input class="field__control" name="full_name" required placeholder="Иванов Иван Иванович" />
+                  </label>
+
+                  <label class="field">
+                    <span class="field__label">Телефон *</span>
+                    <input class="field__control" name="phone" required placeholder="+7 (___) ___-__-__" inputmode="tel" />
+                  </label>
+
+                  <label class="field">
+                    <span class="field__label">Марка автомобиля</span>
+                    <input class="field__control" name="car_model" placeholder="Например: Toyota Camry 2020" />
+                  </label>
+
+                  <label class="field">
+                    <span class="field__label">Услуга</span>
+                    <select class="field__control field__control--select" name="service" data-service-select>
+                      <option value="">Выберите услугу</option>
+                      <option value="other">Другое</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span class="field__label">Сообщение / Пожелания</span>
+                    <textarea class="field__control field__control--textarea" name="message" rows="3" maxlength="500" placeholder="Опишите проблему или укажите марку авто..."></textarea>
+                    <span class="field__counter" data-message-counter>0/500</span>
+                  </label>
+
+                  <button class="btn btn--primary btn--block" type="submit">Отправить заявку</button>
+                  <p class="hint">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+                </div>
+
+                <div class="booking__calendar">
+                  <label class="field">
+                    <span class="field__label">Желаемая дата</span>
+                  </label>
+                  <input type="hidden" name="date" data-selected-date />
+                  <div class="calendar" data-calendar></div>
+                </div>
+              </div>
+            </form>
+
+            <!-- SMS Verification Overlay -->
+            <div class="modal" data-modal hidden>
+              <div class="modal__backdrop" data-modal-close></div>
+              <div class="modal__card" role="dialog" aria-modal="true" aria-label="Подтверждение номера">
+                <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+                  <svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-close-line"></use></svg>
+                </button>
+
+                <div class="modal__head">
+                  <div class="modal__icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-message-3-line"></use></svg></div>
+                  <h3>Подтверждение номера</h3>
+                  <p class="modal__text">Код отправлен на <span data-phone-preview></span></p>
+                </div>
+
+                <div class="modal__status" data-modal-status hidden>
+                  <svg class="ri-icon spin" viewBox="0 0 24 24"><use href="#ri-loader-4-line"></use></svg>
+                  Отправка кода...
+                </div>
+
+                <div class="code" data-code>
+                  <input class="code__digit" inputmode="numeric" maxlength="1" aria-label="Код 1" />
+                  <input class="code__digit" inputmode="numeric" maxlength="1" aria-label="Код 2" />
+                  <input class="code__digit" inputmode="numeric" maxlength="1" aria-label="Код 3" />
+                  <input class="code__digit" inputmode="numeric" maxlength="1" aria-label="Код 4" />
+                </div>
+
+                <p class="error" data-code-error hidden><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-error-warning-line"></use></svg> Введите 4 цифры кода</p>
+
+                <button class="btn btn--primary btn--block" type="button" data-verify>
+                  <span data-verify-label>Подтвердить и отправить</span>
+                  <span class="spin" data-verify-spin hidden><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-loader-4-line"></use></svg></span>
+                </button>
+
+                <div class="resend" data-resend>
+                  <button class="link" type="button" data-resend-btn hidden>Отправить код повторно</button>
+                  <p class="resend__timer" data-resend-timer>Отправить повторно через 60 сек</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section section--contact" id="contact">
+        <div class="section__divider section__divider--grad"></div>
+        <div class="container">
+          <div class="section__head reveal">
+            <div class="badge">Контакты</div>
+            <h2 class="title">Как нас <span class="accent">найти</span></h2>
+            <p class="subtitle">Свяжитесь любым удобным способом</p>
+          </div>
+
+          <div class="contact">
+            <div class="contact__info reveal" style="transition-delay: 100ms;">
+              <div class="contact__cards">
+                <div class="contact-card">
+                  <div class="contact-card__icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-map-pin-line"></use></svg></div>
+                  <div>
+                    <p class="contact-card__label">Адрес</p>
+                    <p class="contact-card__value">Благовещенск, ул. Забурхановская, 98</p>
+                  </div>
+                </div>
+                <div class="contact-card">
+                  <div class="contact-card__icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-phone-line"></use></svg></div>
+                  <div>
+                    <p class="contact-card__label">Телефон</p>
+                    <p class="contact-card__value">+7(___)___-__-__</p>
+                  </div>
+                </div>
+                <div class="contact-card">
+                  <div class="contact-card__icon"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-mail-line"></use></svg></div>
+                  <div>
+                    <p class="contact-card__label">Email</p>
+                    <p class="contact-card__value">FenixAuto@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact__actions">
+                <a class="btn btn--primary" href="mailto:FenixAuto@gmail.com"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-mail-line"></use></svg> Написать на почту</a>
+                <button class="btn btn--outline" type="button" disabled><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-phone-line"></use></svg> Позвонить</button>
+              </div>
+            </div>
+
+            <div class="contact__map reveal" style="transition-delay: 200ms;">
+              <div class="map">
+                <iframe
+                  src="https://www.google.com/maps?q=%D0%91%D0%BB%D0%B0%D0%B3%D0%BE%D0%B2%D0%B5%D1%89%D0%B5%D0%BD%D1%81%D0%BA%2C+%D1%83%D0%BB.+%D0%97%D0%B0%D0%B1%D1%83%D1%80%D1%85%D0%B0%D0%BD%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%2C+98&output=embed"
+                  width="100%"
+                  height="100%"
+                  style="border:0; min-height:320px;"
+                  allowfullscreen
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  title="Fenix Auto Service на карте"
+                  aria-label="Карта расположения автосервиса Fenix в Благовещенске"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__grid">
+          <div>
+            <a class="brand brand--small" href="#" data-scroll-top>
+              <img
+                src="./assets/logo.png"
+                alt="Fenix logo"
+                class="brand__logo brand__logo--small"
+              />
+              <span class="brand__name brand__name--small">FENIX</span>
+            </a>
+            <p class="text text--dim">
+              Центр установки охранных систем, автоэлектрики и детейлинга в Благовещенске.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="footer__title">Навигация</h4>
+            <ul class="footer__list">
+              <li><button class="footer__link" data-scroll="#services">Услуги</button></li>
+              <li><button class="footer__link" data-scroll="#about">О нас</button></li>
+              <li><button class="footer__link" data-scroll="#team">Мастера</button></li>
+              <li><button class="footer__link" data-scroll="#contact">Контакты</button></li>
+              <li><button class="footer__link footer__link--accent" data-scroll="#booking">Записаться на прием</button></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="footer__title">Контакты</h4>
+            <ul class="footer__list">
+              <li class="footer__item"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-phone-line"></use></svg> <span>+7 (___) ___-__-__</span></li>
+              <li class="footer__item"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-mail-line"></use></svg> <a class="footer__a" href="mailto:FenixAuto@gmail.com">FenixAuto@gmail.com</a></li>
+              <li class="footer__item footer__item--top"><svg class="ri-icon" viewBox="0 0 24 24"><use href="#ri-map-pin-line"></use></svg> <span>Благовещенск, ул. Забурхановская, 98</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p class="footer__small">&copy; <span data-year></span> Fenix Auto Service. Все права защищены.</p>
+          <p class="footer__small">Центр автоэлектроники и детейлинга</p>
+        </div>
+      </div>
+    </footer>
+
+    <script defer src="./interact.js"></script>
+  </body>
+</html>
