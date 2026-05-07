@@ -21,6 +21,7 @@
 
 *{box-sizing:border-box}
 html,body{height:100%}
+html{-webkit-text-size-adjust:100%}
 [hidden]{display:none !important}
 .icon-sprite{position:absolute;width:0;height:0;overflow:hidden}
 body{
@@ -140,13 +141,15 @@ a{color:inherit}
   font-size:44px;
   line-height:1.05;
 }
-.title--hero{font-size:34px}
+.title--hero{font-size:clamp(36px, 9vw, 52px)}
 .title--hero{
   margin-left:auto;
   margin-right:auto;
   max-width:100%;
   overflow-wrap:anywhere;
   word-break:break-word;
+  line-height:1.08;
+  text-align:center;
 }
 @media (min-width:640px){.title--hero{font-size:52px}}
 @media (min-width:768px){.title--hero{font-size:64px}}
