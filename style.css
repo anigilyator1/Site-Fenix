@@ -321,8 +321,14 @@ a{color:inherit}
 .row:hover{background:rgba(20,20,20,.6)}
 .row:active{transform:scale(.998)}
 .row__name{display:flex;gap:12px;min-width:0}
-.row__name i{opacity:0;transition:opacity .2s ease;color:var(--accent);font-size:14px;margin-top:2px}
-.row:hover .row__name i{opacity:1}
+.row__name .ri-icon{
+  opacity:0;
+  transition:opacity .2s ease;
+  color:var(--accent);
+  font-size:14px;
+  margin-top:2px;
+}
+.row:hover .row__name .ri-icon{opacity:1}
 .row__title{color:var(--light);font-size:15px;font-weight:600;line-height:1.35}
 .row__price{color:var(--accent);font-weight:700;white-space:nowrap}
 .row__from{color:var(--light-dim);font-size:12px;font-weight:400;margin-right:6px}
