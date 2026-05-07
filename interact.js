@@ -187,7 +187,17 @@
     if (!toggle || !mobile || !icon) return;
 
     function setOpen(open) {
-      mobile.hidden = !open;
+      if (open) {
+        mobile.hidden = false;
+        requestAnimationFrame(() => {
+          mobile.classList.add('is-open');
+        });
+      } else {
+        mobile.classList.remove('is-open');
+        window.setTimeout(() => {
+          if (!mobile.classList.contains('is-open')) mobile.hidden = true;
+        }, 280);
+      }
       const use = $('use', icon);
       if (use) use.setAttribute('href', open ? '#ri-close-line' : '#ri-menu-line');
     }

@@ -28,6 +28,7 @@ body{
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   background:var(--dark-900);
   color:var(--light);
+  overflow-x:hidden;
 }
 img{max-width:100%;display:block}
 button,input,select,textarea{font:inherit}
@@ -50,6 +51,7 @@ a{color:inherit}
   z-index:50;
   background:rgba(10,10,10,.95);
   backdrop-filter: blur(10px);
+  padding-top:env(safe-area-inset-top);
 }
 .navbar__inner{display:flex;align-items:center;justify-content:space-between;padding:6px 0}
 @media (min-width:768px){.navbar__inner{padding:10px 0}}
@@ -83,7 +85,13 @@ a{color:inherit}
   backdrop-filter: blur(10px);
   border-top:1px solid rgba(51,51,51,.3);
   padding:16px 24px 24px;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transition:max-height .28s ease, opacity .22s ease;
+  will-change:max-height,opacity;
 }
+.navbar__mobile.is-open{max-height:340px;opacity:1}
 .navbar__mobile-inner{display:flex;flex-direction:column;gap:10px}
 .navlink--mobile{padding:10px 0;text-align:left}
 
@@ -179,6 +187,9 @@ a{color:inherit}
   background:linear-gradient(to bottom, rgba(10,10,10,.70), rgba(10,10,10,.50), rgba(10,10,10,1));
 }
 .hero__content{position:relative;z-index:10;text-align:center;padding-top:110px;padding-bottom:64px}
+@supports (padding: max(0px)) {
+  .hero__content{padding-top:max(110px, calc(110px + env(safe-area-inset-top)))}
+}
 .hero__cards{display:grid;grid-template-columns:1fr;gap:12px;max-width:860px;margin:0 auto 34px}
 @media (min-width:640px){.hero__cards{grid-template-columns:repeat(3,1fr);gap:18px}}
 .card-mini{
@@ -210,6 +221,7 @@ a{color:inherit}
 @media (min-width:768px){.about__left{padding:72px 0}}
 @media (min-width:1024px){.about__left{padding:40px 0}}
 .about__content{max-width:640px;margin:0 auto}
+@media (max-width:1023px){.about__content{padding:0 24px}}
 @media (min-width:1024px){.about__content{margin-left:auto;margin-right:0;padding-right:32px}}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px;justify-content:center}
 @media (min-width:1024px){.chips{justify-content:flex-start}}
@@ -341,6 +353,7 @@ a{color:inherit}
   border-radius:var(--radius);
   padding:22px;
 }
+.booking,.booking__form,.booking__grid,.booking__fields,.booking__calendar{min-width:0}
 @media (min-width:768px){.booking__form{padding:32px}}
 @media (min-width:1024px){.booking__form{padding:40px}}
 .booking__grid{display:grid;grid-template-columns:1fr;gap:26px}
