@@ -1,4 +1,20 @@
 (() => {
+  // --- Интеграция с 1С (мини-диплом: только заявка) ---
+  const API_BOOKING = {
+    enabled: true,
+    // Прокси на сервере (для GitHub Pages). Файл Site/booking-proxy.php → IIS.
+    url: 'http://46.16.9.76/booking-proxy.php',
+    // Прямой вызов 1С (только если сайт на том же домене / настроен CORS):
+    // url: 'http://46.16.9.76:6080/fenix/hs/siteapi/booking',
+  };
+
+  // Коды номенклатуры 1С для пунктов прайса (value в select → код в API)
+  const ONE_C_SERVICE_CODE = {
+    'leather-care': 'НФ-00000002',
+    'alarm-basic': 'НФ-00000004',
+    'ppf-partial': 'НФ-00000004',
+  };
+
   const PRICING_CATEGORIES = [
     {
       id: 'security',
@@ -440,32 +456,57 @@
     render();
   }
 
+  function resolveServiceCode(selectValue) {
+    const v = String(selectValue || '').trim();
+    if (!v || v === 'other') return v;
+    return ONE_C_SERVICE_CODE[v] || v;
+  }
+
+  function collectBookingPayload(formEl) {
+    const fd = new FormData(formEl);
+    return {
+      full_name: String(fd.get('full_name') || '').trim(),
+      phone: String(fd.get('phone') || '').trim(),
+      car_model: String(fd.get('car_model') || '').trim(),
+      service: resolveServiceCode(fd.get('service')),
+      message: String(fd.get('message') || '').trim(),
+      date: String(fd.get('date') || '').trim(),
+    };
+  }
+
+  async function sendBookingTo1C(payload) {
+    const res = await fetch(API_BOOKING.url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(payload),
+    });
+    const text = await res.text();
+    let data = {};
+    try {
+      data = text ? JSON.parse(text) : {};
+    } catch {
+      data = { ok: false, error: text || res.statusText };
+    }
+    if (!res.ok) {
+      throw new Error(data.error || `HTTP ${res.status}`);
+    }
+    return data;
+  }
+
   function initBooking() {
     const form = $('[data-booking-form]');
     const success = $('[data-booking-success]');
     const modal = $('[data-modal]');
-    const phonePreview = $('[data-phone-preview]');
-    const sending = $('[data-modal-status]');
-    const digits = $$('[data-code] .code__digit');
-    const codeError = $('[data-code-error]');
-    const verifyBtn = $('[data-verify]');
-    const verifyLabel = $('[data-verify-label]');
-    const verifySpin = $('[data-verify-spin]');
-    const resendWrap = $('[data-resend]');
-    const resendBtn = $('[data-resend-btn]');
-    const resendTimer = $('[data-resend-timer]');
+    const submitBtn = form?.querySelector('button[type="submit"]');
     const message = $('textarea[name="message"]', form || document);
     const phoneInput = $('input[name="phone"]', form || document);
     const counter = $('[data-message-counter]');
 
-    if (!form || !success || !modal || !phonePreview || !sending || !verifyBtn || !verifyLabel || !verifySpin || !resendWrap || !resendBtn || !resendTimer || digits.length !== 4 || !codeError) {
-      return;
-    }
+    if (!form || !success) return;
 
-    let canResend = false;
-    let countdown = 60;
-    let timer = null;
-    let isVerifying = false;
+    if (modal) modal.hidden = true;
+
+    let isSubmitting = false;
 
     function formatPhone(raw) {
       const d = String(raw || '').replace(/\D/g, '');
@@ -492,80 +533,6 @@
       return out;
     }
 
-    function resetCode() {
-      digits.forEach((i) => {
-        i.value = '';
-        i.classList.remove('code__digit--error');
-      });
-      codeError.hidden = true;
-    }
-
-    function setSending(v) {
-      sending.hidden = !v;
-    }
-
-    function openModal() {
-      const phone = $('input[name="phone"]', form)?.value || '';
-      const digitsOnly = phone.replace(/\D/g, '');
-      if (digitsOnly.length < 10) return;
-
-      phonePreview.textContent = formatPhone(phone);
-      modal.hidden = false;
-      resetCode();
-      setSending(true);
-      canResend = false;
-      countdown = 60;
-      updateResendUI();
-      startCountdown();
-
-      // имитация отправки кода (место для интеграции SMS API)
-      setTimeout(() => setSending(false), 1500);
-      setTimeout(() => digits[0].focus(), 100);
-    }
-
-    function closeModal() {
-      modal.hidden = true;
-      stopCountdown();
-      setSending(false);
-    }
-
-    function stopCountdown() {
-      if (timer) window.clearInterval(timer);
-      timer = null;
-    }
-
-    function updateResendUI() {
-      resendBtn.hidden = !canResend;
-      resendTimer.hidden = canResend;
-      resendTimer.textContent = `Отправить повторно через ${countdown} сек`;
-    }
-
-    function startCountdown() {
-      stopCountdown();
-      timer = window.setInterval(() => {
-        countdown -= 1;
-        if (countdown <= 0) {
-          countdown = 0;
-          canResend = true;
-          stopCountdown();
-        }
-        updateResendUI();
-      }, 1000);
-    }
-
-    function resend() {
-      if (!canResend) return;
-      canResend = false;
-      countdown = 60;
-      resetCode();
-      setSending(true);
-      updateResendUI();
-      startCountdown();
-      // имитация отправки кода
-      setTimeout(() => setSending(false), 1500);
-      setTimeout(() => digits[0].focus(), 100);
-    }
-
     function showSuccessAndReset() {
       form.hidden = true;
       success.hidden = false;
@@ -578,72 +545,44 @@
       }, 4000);
     }
 
-    async function verifyAndSubmit() {
-      if (isVerifying) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
 
-      const code = digits.map((d) => d.value.trim()).join('');
-      if (!/^\d{4}$/.test(code)) {
-        digits.forEach((i) => i.classList.add('code__digit--error'));
-        codeError.hidden = false;
-        digits[0].focus();
+      if (!form.reportValidity()) return;
+
+      const phoneDigits = String(new FormData(form).get('phone') || '').replace(/\D/g, '');
+      if (phoneDigits.length < 10) {
+        window.alert('Укажите корректный телефон');
         return;
       }
 
-      isVerifying = true;
-      verifyBtn.disabled = true;
-      verifySpin.hidden = false;
-      verifyLabel.textContent = 'Проверка...';
+      if (!API_BOOKING.enabled) {
+        showSuccessAndReset();
+        return;
+      }
+
+      isSubmitting = true;
+      const prevLabel = submitBtn?.textContent;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Отправка...';
+      }
 
       try {
-        // Имитация SMS-проверки (место для будущего backend API).
-        await new Promise((resolve) => window.setTimeout(resolve, 1200));
-
-        // В офлайн-режиме внешняя отправка отключена.
-        closeModal();
+        const payload = collectBookingPayload(form);
+        await sendBookingTo1C(payload);
         showSuccessAndReset();
-      } catch (_err) {
-        closeModal();
-        showSuccessAndReset();
+      } catch (err) {
+        console.error(err);
+        window.alert('Не удалось отправить заявку. Попробуйте позже или позвоните нам.');
       } finally {
-        isVerifying = false;
-        verifyBtn.disabled = false;
-        verifySpin.hidden = true;
-        verifyLabel.textContent = 'Подтвердить и отправить';
-      }
-    }
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      openModal();
-    });
-
-    $$('[data-modal-close]', modal).forEach((el) => el.addEventListener('click', closeModal));
-    resendBtn.addEventListener('click', resend);
-    verifyBtn.addEventListener('click', verifyAndSubmit);
-
-    digits.forEach((input, idx) => {
-      input.addEventListener('input', () => {
-        const v = input.value.replace(/\D/g, '').slice(0, 1);
-        input.value = v;
-        input.classList.remove('code__digit--error');
-        codeError.hidden = true;
-        if (v && idx < 3) digits[idx + 1].focus();
-      });
-
-      input.addEventListener('keydown', (ev) => {
-        if (ev.key === 'Backspace' && !input.value && idx > 0) {
-          digits[idx - 1].focus();
+        isSubmitting = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = prevLabel || 'Отправить заявку';
         }
-      });
-    });
-
-    digits[0].addEventListener('paste', (e) => {
-      e.preventDefault();
-      const pasted = (e.clipboardData?.getData('text') || '').replace(/\D/g, '').slice(0, 4);
-      resetCode();
-      for (let i = 0; i < pasted.length; i++) digits[i].value = pasted[i];
-      const focusIndex = Math.min(pasted.length, 3);
-      digits[focusIndex].focus();
+      }
     });
 
     if (phoneInput) {
